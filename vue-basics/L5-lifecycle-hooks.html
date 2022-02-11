@@ -1,9 +1,54 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<title></title>
+	<title>lifecycle hooks</title>
+	<style type="text/css">
+		.box{
+			background-color: red;
+			height: 100px;
+			width: 100px
+		}
+		[v-cloak]{display: none;}
+	</style>
 </head>
 <body>
+	<div id="app" v-cloak>
+		<button @click='toggleBox'>Toggle Box</button>
+		<test-box v-if='isVisible' />
+	</div>
 
+	<script src="https://unpkg.com/vue@next"></script>
+	<script type="text/javascript">
+		let app=Vue.createApp({
+			data(){
+				return{
+					isVisible:false
+				}
+			},
+			methods:{
+				toggleBox(){
+					this.isVisible = !this.isVisible
+				}
+			}
+		})
+		app.component('test-box',{
+			template: `
+				<div class="box"></div>
+			`,
+			created(){
+				console.log('created')
+			},
+			mounted(){
+				console.log('mounted')
+			},
+			unmounted(){
+				console.log('unmounted')
+			},
+			updated(){
+				console.log('updated')
+			}
+		})
+		app.mount('#app')
+	</script>
 </body>
 </html>
