@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>VUE3 beginning</title>
+	<style type="text/css">
+		.box{
+			background-color: red;
+			height: 100px;
+			width: 100px
+		}
+		.box.two{background-color: blue}
+		.box.three{background-color: yellow}
+		[v-cloak]{display: none;}
+	</style>
+</head>
+<body>
+	<div id="app" v-cloak>
+		{{ greeting }}
+		<input @keyup.space="greet(greeting)" v-model="greeting">
+		<hr>
+		<button @click="toggleBox">toggle box</button>
+		<div v-if="isVisible" class="box"></div>
+		<div v-else-if="isVisible2" class="box two"></div>
+		<div v-else class="box three"></div>
+	</div>
+
+	<script src="https://unpkg.com/vue@next"></script>
+	<script>
+		let app=Vue.createApp({
+			data:function(){
+				return{
+					greeting : 'hello VUE',
+					isVisible: false,
+					isVisible2: false
+				}
+			},
+			methods:{
+				toggleBox(){
+					this.isVisible = !this.isVisible
+				},
+				greet(greeting){
+					console.log(greeting+" XD")
+				}
+			}
+		})
+		app.mount('#app')
+	</script>
+</body>
+</html>
